@@ -21,8 +21,11 @@ const UsuarioSchema =  Schema({
     }
   ],
   role: { 
-    type: String, 
-    default: 'USER' 
+    type: [
+      "USER",
+      "ADMIN"
+    ], 
+    default: "USER"
   } 
 });
 

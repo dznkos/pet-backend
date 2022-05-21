@@ -38,10 +38,11 @@ const createUser = async (req, res = response) => {
       token
     })
 
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({
       ok: false,
-      msg: 'Porfavor comuniquese al adm'
+      msg: 'Porfavor comuniquese al adm',
+      error: err
     })
   }
   
@@ -99,7 +100,9 @@ const renewToken = async (req,res) => {
 
   res.json({
     ok: true,
-    token
+    token,
+    uid,
+    name
   })
 }
 

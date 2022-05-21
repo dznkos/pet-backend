@@ -21,16 +21,16 @@ app.use( express.static('public'));
 app.use( express.json());
 
 //rutas users
-app.use('/api/users', require('./routes/auth'));
+app.use('/api/users', require('./routes/users'));
 
 //rutas pets
 app.use('/api/pets', require('./routes/pets'));
 
 //rutas types
-app.use('/api/types', require('./routes/petsType'));
+app.use('/api/types', require('./routes/types'));
 
-//rutas rol
-app.use('/api/rol', require('./routes/role'));
+//rutas favorites
+app.use('/api/favorites', require('./routes/favorites'));
 
 
 app.listen( process.env.PORT, ()=> {

@@ -6,13 +6,37 @@ const Usuario = require('../models/Usuario');
 
 const listPet = async (req, res = response) => {
 
+    const idPet = req.params.id;
+    const uid = req.uid;
+
     try {
-        const pets = await Pet.find()
-                            .populate('user', 'name');
-        res.json({
-            ok: true,
-            pets
-        })        
+        const pets = [];
+        const { favorites } = await Usuario.findById(uid);
+
+        Pet.find()
+            .select('-user')
+            .lean()
+            .exec( function (err, allpets) {
+                    console.log(allpets)
+                    // JSON.parse(JSON.stringify(rs));                    
+                    
+                    allpets.map( (p) => {
+                        const isFav = favorites.includes( p._id )
+                        
+                        pets.push( isFav 
+                            ? { ...p, tagFav: isFav } 
+                            : { ...p, tagFav: isFav }  
+                        );                                               
+                    })                     
+
+                    res.json({
+                        ok: true,
+                        pets
+                    })  
+                }
+            )   
+               
+              
     } catch (error) {
         res.status(500).json({
             ok: false,
